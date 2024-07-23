@@ -63,9 +63,6 @@ jobs:
       - name: Check MySQL Container Logs
         run: docker logs $(docker ps -q -f ancestor=mysql:8.0)
 
-      - name: Build with Gradle Wrapper
-        run: ./gradlew build
-
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:

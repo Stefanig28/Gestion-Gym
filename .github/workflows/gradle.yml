@@ -52,3 +52,4 @@ jobs:
 
     - name: Generate and Submit Dependency Graph
       run: ./gradlew generateDependencyGraph
+

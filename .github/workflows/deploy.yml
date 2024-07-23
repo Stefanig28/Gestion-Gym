@@ -1,0 +1,70 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Make Gradle Wrapper Executable
+      run: chmod +x ./gradlew
+
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build
+
+    - name: Run Tests
+      run: ./gradlew test
+
+    - name: Deploy Database
+      env:
+        DB_HOST: 8080
+        DB_PORT: 3306
+        DB_USER: root
+        DB_PASSWORD: 2424
+        DB_NAME: gestion_gimnasio
+      run: |
+        # Install PostgreSQL client (adapt if using another database)
+        sudo apt-get install -y postgresql-client
+
+        # Run database migrations or SQL scripts
+        PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f path/to/migration_script.sql
+
+    - name: Deploy Application
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+      run: |
+        # Install SSH client
+        sudo apt-get install -y ssh
+
+        # Add the SSH private key to the SSH agent
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+        # Copy the build artifact to the server
+        scp -o StrictHostKeyChecking=no build/libs/your-app.jar $SERVER_USER@$SERVER_IP:/path/to/deploy
+
+        # SSH into the server and restart the service
+        ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+          # Stop the existing service (replace this command with your actual service management command)
+          sudo systemctl stop your-app.service
+
+          # Replace the old JAR with the new one
+          sudo mv /path/to/deploy/your-app.jar /path/to/your/app
+
+          # Start the service again
+          sudo systemctl start your-app.service
+        EOF

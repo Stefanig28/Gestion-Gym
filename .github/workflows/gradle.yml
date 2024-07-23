@@ -57,11 +57,15 @@ jobs:
             echo "MySQL is unavailable - sleeping"
             sleep 10
           done
+
       - name: List Docker containers
         run: docker ps -a
 
       - name: Check MySQL Container Logs
         run: docker logs $(docker ps -q -f ancestor=mysql:8.0)
+
+      - name: Run Gradle Build and Tests
+        run: ./gradlew build
 
   dependency-submission:
     runs-on: ubuntu-latest

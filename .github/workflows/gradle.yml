@@ -25,8 +25,8 @@ jobs:
     - name: Make Gradle Wrapper Executable
       run: chmod +x gradlew
 
-    - name: Build with Gradle Wrapper
-      run: chmod +x ./gradlew && ./gradlew clean
+    - name: Clean and Build with Gradle Wrapper
+      run: ./gradlew clean build
 
   dependency-submission:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
+    - name: Setup Gradle for Dependency Submission
       uses: gradle/actions/setup-gradle@v3.1.0
       with:
         dependency-graph: generate-and-submit

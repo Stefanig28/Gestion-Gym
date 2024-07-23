@@ -42,12 +42,6 @@ jobs:
         # Run database migrations or SQL scripts
         PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f path/to/migration_script.sql
 
-    - name: Deploy Application
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SERVER_IP: ${{ secrets.SERVER_IP }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
-      run: |
         # Install SSH client
         sudo apt-get install -y ssh
 

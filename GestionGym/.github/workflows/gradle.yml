@@ -2,10 +2,10 @@ name: Continuous integration with github
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 jobs:
   test_build:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
           java-version: 17
           distribution: temurin
       - name: build and clean project
-        run: chmod +x ./gradlew
+        run: chmod +x ./gradlew && ./gradlew clean
       - name: run all tests
         run: ./gradlew test
       - name: create .jar and install

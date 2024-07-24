@@ -1,11 +1,11 @@
 package com.gestion.GestionGym.Controlador;
 
-import com.gestion.GestionGym.Excepciones.EntrenadorExistenteExcepcion;
-import com.gestion.GestionGym.Excepciones.EntrenadorNoEncontradoExcepcion;
-import com.gestion.GestionGym.Excepciones.EntrenadorNoExistenteExcepcion;
-import com.gestion.GestionGym.Excepciones.InformacionIncompletaExcepcion;
+import com.gestion.GestionGym.Excepciones.*;
 import com.gestion.GestionGym.Modelo.Entrenador;
 import com.gestion.GestionGym.Servicio.EntrenadorServicio;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,12 @@ public class EntrenadorControlador {
         this.entrenadorServicio = entrenadorServicio;
     }
 
+    @Operation(summary = "Crear un nuevo entrenador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Entrenador creado correctamente"),
+            @ApiResponse(responseCode = "400", description = "El entrenador ya existe o la información está incompleta"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @PostMapping
     public ResponseEntity<String> crearEntrenador(@RequestBody Entrenador entrenador) {
         try {
@@ -31,12 +37,17 @@ public class EntrenadorControlador {
             return ResponseEntity.ok("Se creó el entrenador correctamente");
         } catch (EntrenadorExistenteExcepcion | InformacionIncompletaExcepcion e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error inesperado.");
         }
     }
 
-
+    @Operation(summary = "Actualizar un entrenador existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Entrenador actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Entrenador no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizarEntrenador(@PathVariable("id") Long id, @RequestBody Entrenador entrenador) {
         try {
@@ -47,6 +58,12 @@ public class EntrenadorControlador {
         }
     }
 
+    @Operation(summary = "Obtener la lista de todos los entrenadores")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de entrenadores obtenida correctamente"),
+            @ApiResponse(responseCode = "400", description = "No se encuentran entrenadores"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @GetMapping
     public ResponseEntity<List<Entrenador>> obtenerEntrenadores() {
         try {
@@ -57,6 +74,12 @@ public class EntrenadorControlador {
         }
     }
 
+    @Operation(summary = "Obtener un entrenador por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Entrenador obtenido correctamente"),
+            @ApiResponse(responseCode = "400", description = "Entrenador no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Entrenador> obtenerEntrenadorPorId(@PathVariable("id") Long id) {
         try {
@@ -67,6 +90,12 @@ public class EntrenadorControlador {
         }
     }
 
+    @Operation(summary = "Eliminar un entrenador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Entrenador eliminado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Entrenador no existente"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarEntrenador(@PathVariable Long id) {
         try {
@@ -76,5 +105,4 @@ public class EntrenadorControlador {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
 }

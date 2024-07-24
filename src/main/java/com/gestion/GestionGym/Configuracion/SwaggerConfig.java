@@ -22,6 +22,6 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info().title("Gestión Gym")
                         .version("1.0")
-                        .description("En esta API tenemos la gestión de los aprendices y entrenadores, también podemos obtener los reportes de actividad."));
+                        .description("API para gestionar aprendices y entrenadores en un gym, también obtenemos los reportes de actividad."));
     }
 }

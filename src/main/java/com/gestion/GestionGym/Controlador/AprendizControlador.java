@@ -3,6 +3,9 @@ package com.gestion.GestionGym.Controlador;
 import com.gestion.GestionGym.Excepciones.*;
 import com.gestion.GestionGym.Modelo.Aprendiz;
 import com.gestion.GestionGym.Servicio.AprendizServicio;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,12 @@ public class AprendizControlador {
         this.aprendizServicio = aprendizServicio;
     }
 
+    @Operation(summary = "Crear un nuevo aprendiz")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aprendiz creado correctamente"),
+            @ApiResponse(responseCode = "400", description = "El id del entrenador es requerido o el aprendiz ya existe"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @PostMapping
     public ResponseEntity<String> crearAprendiz(@RequestBody Aprendiz aprendiz) {
         try {
@@ -38,6 +47,12 @@ public class AprendizControlador {
         }
     }
 
+    @Operation(summary = "Actualizar un aprendiz existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aprendiz actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Aprendiz no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @PutMapping("/{id}/actualizar")
     public ResponseEntity<String> actualizarAprendiz(@PathVariable Long id, @RequestBody Aprendiz aprendiz) {
         try {
@@ -48,12 +63,24 @@ public class AprendizControlador {
         }
     }
 
+    @Operation(summary = "Obtener aprendices")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de aprendices obtenida correctamente"),
+            @ApiResponse(responseCode = "400", description = "No se encuentran aprendices"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @GetMapping
     public ResponseEntity<List<Aprendiz>> obtenerAprendices() {
         List<Aprendiz> aprendices = this.aprendizServicio.obtenerAprendices();
         return ResponseEntity.ok(aprendices);
     }
 
+    @Operation(summary = "Obtener un aprendiz por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aprendiz obtenido correctamente"),
+            @ApiResponse(responseCode = "400", description = "Aprendiz no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerAprendizPorId(@PathVariable Long id) {
         try {
@@ -64,6 +91,12 @@ public class AprendizControlador {
         }
     }
 
+    @Operation(summary = "Eliminar un aprendiz por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Aprendiz eliminado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Aprendiz no existente"),
+            @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarAprendiz(@PathVariable Long id) {
         try {

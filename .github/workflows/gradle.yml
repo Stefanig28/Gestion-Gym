@@ -73,7 +73,7 @@ jobs:
           echo "Waiting for MySQL to be ready..."
           until mysqladmin ping -h 127.0.0.1 -P 3306 --silent; do
             echo "MySQL is unavailable - sleeping"
-            sleep 10
+            sleep 15
           done
 
       - name: List Docker containers
@@ -116,3 +116,4 @@ jobs:
         with:
           name: test-results
           path: build/reports/tests/test
+

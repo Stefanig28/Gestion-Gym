@@ -9,32 +9,14 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
-  dependency-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
-
-      - name: Grant execute permission for Gradle Wrapper
-        run: chmod +x ./gradlew
-
-      - name: Run Gradle Dependency Check
-        run: ./gradlew dependencyUpdates
-
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -73,43 +55,14 @@ jobs:
           echo "Waiting for MySQL to be ready..."
           until mysqladmin ping -h 127.0.0.1 -P 3306 --silent; do
             echo "MySQL is unavailable - sleeping"
-            sleep 15
+            sleep 10
           done
 
-      - name: List Docker containers
-        run: docker ps -a
-
-      - name: Check MySQL Container Logs
-        run: docker logs $(docker ps -q -f ancestor=mysql:8.0)
+      - name: Run Gradle Dependency Check
+        run: ./gradlew dependencyUpdates
 
       - name: Run Gradle Build and Tests
         run: ./gradlew build
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: build/reports/tests/test
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5
-
-      - name: Grant execute permission for Gradle Wrapper
-        run: chmod +x ./gradlew
-
-      - name: Run Gradle Tests
-        run: ./gradlew test
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v3

@@ -13,7 +13,7 @@ public class ActividadesServicio {
 
     public String obtenerReporteMensual(Long aprendizId, int mes, int anio) {
         try {
-            String url = "http://localhost:8081/api/actividades/reporte?aprendizId=" + aprendizId + "&mes=" + mes + "&anio=" + anio;
+            String url = "mongodb://mongo:FWxbUldtSQyUfnHlWsupSMxOHSvVkZmL@roundhouse.proxy.rlwy.net:22147/actividades_db" + aprendizId + "&mes=" + mes + "&anio=" + anio;
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
             return response.getBody();
         } catch (RuntimeException e) {

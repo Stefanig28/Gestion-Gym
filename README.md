@@ -106,18 +106,25 @@ http://localhost:8080/api/entrenador/eliminar/1
 ```
 
 ### Excepciones
+
 > [!WARNING]
 > **EntrenadorExistenteExcepcion**: Se lanza cuando se intenta crear un entrenador con un correo electrónico ya existente.
+
 > [!WARNING]
 > InformacionIncompletaExcepcion: Se lanza cuando se proporciona información incompleta para crear o actualizar un entrenador o aprendiz.
+
 > [!WARNING]
 > EntrenadorNoEncontradoExcepcion: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
+
 > [!WARNING]
 > EntrenadorNoEncontradoExcepcion: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
+
 > [!WARNING]
 > AprendizExistenteExcepcion: Se lanza cuando se intenta crear un aprendiz con un correo electrónico ya existente.
+
 > [!WARNING]
 > AprendizNoEncontradoExcepcion: Se lanza cuando no se encuentra un aprendiz con el ID proporcionado.
+
 > [!WARNING]
 > AprendizNoExistenteExcepcion: Se lanza cuando no se encuentran aprendices en el repositorio.
 

@@ -33,11 +33,12 @@ API de Gestión de Gimnasio
  
  Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Proporciona endpoints para crear, actualizar, obtener y eliminar registros de entrenadores y aprendices, así como obtener reportes mensuales de actividades.
  
-  Modelos
+## Modelos
   
-Aprendiz
+###Aprendiz
 
-```Java
+```
+Java
 public Aprendiz(Long id, String nombreCompleto, String correoElectronico, String contrasenia, LocalDate fechaNacimiento, String genero, String objetivoEntrenamiento, String nivelCondicion, Entrenador entrenador) {
     this.id = id;
     this.nombreCompleto = nombreCompleto;

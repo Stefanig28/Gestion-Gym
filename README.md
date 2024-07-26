@@ -69,7 +69,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
   "certificaciones": ["Certificación C"]
 }
 ```
-###Obtener la Lista de Entrenadores
+### Obtener la Lista de Entrenadores
 
 **GET /api/entrenador**
 
@@ -81,20 +81,33 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 http://localhost:8080/api/entrenador
 ```
 
-###Obtener un Entrenador por ID
+### Obtener un Entrenador por ID
 
 **GET /api/entrenador/{id}**
 
 **Este endpoint permite obtener la información de un entrenador específico usando su ID. Si el entrenador no es encontrado, se devolverá un error.**
 
+**Ejemplo de Uso**:
 
-###Eliminar un Entrenador
+```
+http://localhost:8080/api/entrenador/1
+```
+
+### Eliminar un Entrenador
 
 **DELETE /api/entrenador/eliminar/{id}**
 
 **Este endpoint permite eliminar un entrenador específico usando su ID. Si el entrenador no es encontrado, se devolverá un error.**
 
-Excepciones
+**Ejemplo de Uso**:
+
+```
+http://localhost:8080/api/entrenador/eliminar/1
+```
+
+### Excepciones
+> [!WARNING]
+> EntrenadorExistenteExcepcion: Se lanza cuando se intenta crear un entrenador con un correo electrónico ya existente.
 EntrenadorExistenteExcepcion: Se lanza cuando se intenta crear un entrenador con un correo electrónico ya existente.
 InformacionIncompletaExcepcion: Se lanza cuando se proporciona información incompleta para crear o actualizar un entrenador o aprendiz.
 EntrenadorNoEncontradoExcepcion: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.

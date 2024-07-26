@@ -22,4 +22,4 @@ La Aplicación de Gestión de Gimnasio permite administrar entrenadores, aprendi
 
 ## 🛠 Skills
 Javascript, HTML, CSS...
-[![My Skills](https://skillicons.dev/icons?i=java,kotlin,nodejs,figma&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=java,gradle,idea,figma&theme=light)](https://skillicons.dev)

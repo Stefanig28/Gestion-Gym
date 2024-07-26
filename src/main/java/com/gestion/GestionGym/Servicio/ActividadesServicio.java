@@ -20,4 +20,8 @@ public class ActividadesServicio {
             return "Error al obtener el reporte: " + e.getMessage();
         }
     }
+
+    public void guardarActividad(ActividadesServicio actividadesServicio) {
+
+    }
 }

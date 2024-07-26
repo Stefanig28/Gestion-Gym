@@ -33,4 +33,6 @@ public class ActividadesControlador {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Ingrese el usuario y contraseña.");
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.gestion.GestionGym.Servicio;
 
 import com.gestion.GestionGym.Excepciones.*;
 import com.gestion.GestionGym.Modelo.Aprendiz;
+import com.gestion.GestionGym.Modelo.Entrenador;
 import com.gestion.GestionGym.Repositorio.AprendizRepositorio;
 import com.gestion.GestionGym.Repositorio.EntrenadorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//ingenious-emotion-production.up.railway.app/{endpoint}
+//https://gestion-gym-production.up.railway.app/api/aprendiz/
 @Service
 public class AprendizServicio {
 
@@ -40,12 +41,18 @@ public class AprendizServicio {
             throw new InformacionIncompletaExcepcion();
         }
 
-        aprendiz.setEntrenador(entrenadorRepositorio.findById(entrenadorId).orElseThrow(() -> new EntrenadorNoEncontradoExcepcion(entrenadorId)));
+        // Buscar el entrenador por ID y se le asigna al aprendiz
+        Entrenador entrenador = entrenadorRepositorio.findById(entrenadorId)
+                .orElseThrow(() -> new EntrenadorNoEncontradoExcepcion(entrenadorId));
+        aprendiz.setEntrenador(entrenador);
+
+        // Guardar el aprendiz en el repositorio
         aprendizRepositorio.save(aprendiz);
     }
 
     public void actualizarAprendiz(Long id, Aprendiz aprendiz) {
-        Aprendiz aprendizActualizar = aprendizRepositorio.findById(id).orElseThrow(() -> new AprendizNoEncontradoExcepcion(id));
+        Aprendiz aprendizActualizar = aprendizRepositorio.findById(id)
+                .orElseThrow(() -> new AprendizNoEncontradoExcepcion(id));
 
         aprendizActualizar.setNombreCompleto(aprendiz.getNombreCompleto());
         aprendizActualizar.setCorreoElectronico(aprendiz.getCorreoElectronico());
@@ -53,7 +60,17 @@ public class AprendizServicio {
         aprendizActualizar.setGenero(aprendiz.getGenero());
         aprendizActualizar.setObjetivoEntrenamiento(aprendiz.getObjetivoEntrenamiento());
         aprendizActualizar.setNivelCondicion(aprendiz.getNivelCondicion());
-        aprendizActualizar.setEntrenador(aprendiz.getEntrenador());
+
+        // Se verifica y actualiza el entrenador solo si se proporciona un nuevo ID
+        if (aprendiz.getEntrenador() != null && aprendiz.getEntrenador().getId() != null) {
+            Long entrenadorId = aprendiz.getEntrenador().getId();
+            if (!entrenadorRepositorio.existsById(entrenadorId)) {
+                throw new EntrenadorNoEncontradoExcepcion(entrenadorId);
+            }
+            Entrenador entrenador = entrenadorRepositorio.findById(entrenadorId)
+                    .orElseThrow(() -> new EntrenadorNoEncontradoExcepcion(entrenadorId));
+            aprendizActualizar.setEntrenador(entrenador);
+        }
 
         aprendizRepositorio.save(aprendizActualizar);
     }

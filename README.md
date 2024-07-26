@@ -41,7 +41,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 
 **Este endpoint permite crear un nuevo entrenador. Se debe proporcionar toda la información necesaria del entrenador, como nombre completo, correo electrónico, contraseña, especialidad, experiencia y certificaciones. Si el entrenador ya existe o la información está incompleta, se devolverá un error adecuado.**
 
-**Ejemplo de Cuerpo de Solicitud**:
+**Ejemplo de Solicitud**:
 ```json
 {
   "nombreCompleto": "Juan Pérez",
@@ -58,7 +58,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 
 **Este endpoint permite actualizar la información de un entrenador existente. Se debe proporcionar el ID del entrenador en la URL y la nueva información en el cuerpo de la solicitud. Si el entrenador no es encontrado, se devolverá un error.**
 
-**Ejemplo de Cuerpo de Solicitud**:
+**Ejemplo de Solicitud**:
 ```json
 {
   "nombreCompleto": "Luis García",
@@ -113,7 +113,7 @@ http://localhost:8080/api/entrenador/eliminar/1
 
 **Este endpoint permite crear un nuevo aprendiz y asociarlo con un entrenador. Se debe proporcionar toda la información necesaria del aprendiz, incluyendo el ID del entrenador. Si el entrenador no existe o la información del aprendiz está incompleta, se devolverá un error adecuado.**
 
-**Ejemplo de Cuerpo de Solicitud**:
+**Ejemplo de Solicitud**:
 
 ```json
 {
@@ -134,7 +134,7 @@ http://localhost:8080/api/entrenador/eliminar/1
 
 **Este endpoint permite actualizar la información de un aprendiz existente. Se debe proporcionar el ID del aprendiz en la URL y la nueva información en el cuerpo de la solicitud. Si el aprendiz no es encontrado, se devolverá un error.*
 
-**Ejemplo de Cuerpo de Solicitud**:
+**Ejemplo de Solicitud**:
 
 ```json
 {

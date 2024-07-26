@@ -35,10 +35,9 @@ API de Gestión de Gimnasio
  
 ## Modelos
   
-###Aprendiz
+### Aprendiz
 
 ```
-Java
 public Aprendiz(Long id, String nombreCompleto, String correoElectronico, String contrasenia, LocalDate fechaNacimiento, String genero, String objetivoEntrenamiento, String nivelCondicion, Entrenador entrenador) {
     this.id = id;
     this.nombreCompleto = nombreCompleto;

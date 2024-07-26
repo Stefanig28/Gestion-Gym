@@ -77,7 +77,9 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 
 **Ejemplo de Uso**:
 
-`http://localhost:8080/api/entrenador
+```
+http://localhost:8080/api/entrenador
+```
 
 ###Obtener un Entrenador por ID
 

@@ -43,12 +43,6 @@ jobs:
         name: test-results
         path: build/test-results/test  # Ruta a los resultados de los tests
 
-    - name: Upload Test Reports
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-reports
-        path: build/reports/tests/test  # Ruta a los reportes de los tests
-
   dependency-submission:
 
     runs-on: ubuntu-latest

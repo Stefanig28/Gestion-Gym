@@ -43,14 +43,7 @@ jobs:
         name: test-results
         path: build/test-results/test  # Ruta a los resultados de los tests
 
-    - name: Upload Test Reports
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-reports
-        path: build/reports/tests/test
-
   dependency-submission:
-  
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -62,4 +55,3 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-

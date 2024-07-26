@@ -1,5 +1,6 @@
 package com.gestion.GestionGym.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -36,6 +37,7 @@ public class Aprendiz {
 
     @ManyToOne
     @JoinColumn(name = "entrenador_id")
+    @JsonIgnore
     private Entrenador entrenador;
 
     public Aprendiz() {

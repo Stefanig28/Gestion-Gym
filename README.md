@@ -29,27 +29,29 @@ La Aplicación de Gestión de Gimnasio permite administrar entrenadores, aprendi
 ● Diagrama para representar las reglas de negocio.
 
 
-API de Gestión de Gimnasio
- 
- Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Proporciona endpoints para crear, actualizar, obtener y eliminar registros de entrenadores y aprendices, así como obtener reportes mensuales de actividades.
- 
-## Modelos
-  
-### Aprendiz
+# API de Gestión de Gimnasio
 
-```
-public Aprendiz(Long id, String nombreCompleto, String correoElectronico, String contrasenia, LocalDate fechaNacimiento, String genero, String objetivoEntrenamiento, String nivelCondicion, Entrenador entrenador) {
-    this.id = id;
-    this.nombreCompleto = nombreCompleto;
-    this.correoElectronico = correoElectronico;
-    this.contrasenia = contrasenia;
-    this.fechaNacimiento = fechaNacimiento;
-    this.genero = genero;
-    this.objetivoEntrenamiento = objetivoEntrenamiento;
-    this.nivelCondicion = nivelCondicion;
-    this.entrenador = entrenador;
+Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Proporciona endpoints para crear, actualizar, obtener y eliminar registros de entrenadores y aprendices, así como obtener reportes mensuales de actividades.
+
+## Endpoints de Entrenadores
+
+### Crear un Entrenador
+
+**POST /api/entrenador**
+
+**Descripción**: Este endpoint permite crear un nuevo entrenador. Se debe proporcionar toda la información necesaria del entrenador, como nombre completo, correo electrónico, contraseña, especialidad, experiencia y certificaciones. Si el entrenador ya existe o la información está incompleta, se devolverá un error adecuado.
+
+**Ejemplo de Cuerpo de Solicitud**:
+```json
+{
+  "nombreCompleto": "Juan Pérez",
+  "correoElectronico": "juan.perez@example.com",
+  "contrasenia": "password123",
+  "especialidad": "Fuerza",
+  "experiencia": "5 años",
+  "certificaciones": ["Certificación A", "Certificación B"]
 }
-```
+
 
 
 

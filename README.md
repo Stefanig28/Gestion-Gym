@@ -39,7 +39,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 
 **POST /api/entrenador**
 
-**Descripción**: Este endpoint permite crear un nuevo entrenador. Se debe proporcionar toda la información necesaria del entrenador, como nombre completo, correo electrónico, contraseña, especialidad, experiencia y certificaciones. Si el entrenador ya existe o la información está incompleta, se devolverá un error adecuado.
+**Este endpoint permite crear un nuevo entrenador. Se debe proporcionar toda la información necesaria del entrenador, como nombre completo, correo electrónico, contraseña, especialidad, experiencia y certificaciones. Si el entrenador ya existe o la información está incompleta, se devolverá un error adecuado.**
 
 **Ejemplo de Cuerpo de Solicitud**:
 ```json
@@ -51,7 +51,23 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
   "experiencia": "5 años",
   "certificaciones": ["Certificación A", "Certificación B"]
 }
+```
+### Actualizar un Entrenador
 
+**PUT /api/entrenador/actualizar/{id}**
 
+**Este endpoint permite actualizar la información de un entrenador existente. Se debe proporcionar el ID del entrenador en la URL y la nueva información en el cuerpo de la solicitud. Si el entrenador no es encontrado, se devolverá un error.**
+
+**Ejemplo de Cuerpo de Solicitud**:
+```json
+{
+  "nombreCompleto": "Luis García",
+  "correoElectronico": "luis.garcia@example.com",
+  "contrasenia": "newpassword123",
+  "especialidad": "Cardio",
+  "experiencia": "3 años",
+  "certificaciones": ["Certificación C"]
+}
+```
 
 

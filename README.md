@@ -12,7 +12,8 @@ Desarollo del proyecto intregador dentro del BooCamp de Desarollo web BacKend en
 - luis
 - stefani
 - omar
-  \n\n El repositorio corresponde al desarollo del proyecto intrgador dentro del bootcamp Betek, en el se desarolla la simulacion de una aplicacion de gestion de gimnasio utilizando Java, MySQL, SpringBoot, SpringData, swagger y railway.
+  
+- El repositorio corresponde al desarollo del proyecto intrgador dentro del bootcamp Betek, en el se desarolla la simulacion de una aplicacion de gestion de gimnasio utilizando Java, MySQL, SpringBoot, SpringData, swagger y railway.
 
 
 

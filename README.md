@@ -37,7 +37,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 
 ### Crear un Entrenador
 
-**POST /api/entrenador**
+```POST /api/entrenador```
 
 **Este endpoint permite crear un nuevo entrenador. Se debe proporcionar toda la información necesaria del entrenador, como nombre completo, correo electrónico, contraseña, especialidad, experiencia y certificaciones. Si el entrenador ya existe o la información está incompleta, se devolverá un error adecuado.**
 
@@ -54,7 +54,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 ```
 ### Actualizar un Entrenador
 
-**PUT /api/entrenador/actualizar/{id}**
+```PUT /api/entrenador/actualizar/{id}```
 
 **Este endpoint permite actualizar la información de un entrenador existente. Se debe proporcionar el ID del entrenador en la URL y la nueva información en el cuerpo de la solicitud. Si el entrenador no es encontrado, se devolverá un error.**
 
@@ -71,7 +71,7 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 ```
 ### Obtener la Lista de Entrenadores
 
-**GET /api/entrenador**
+```GET /api/entrenador```
 
 **Este endpoint permite obtener la lista de todos los entrenadores registrados en la base de datos. Devuelve una lista con la información de cada entrenador.**
 
@@ -83,7 +83,7 @@ http://localhost:8080/api/entrenador
 
 ### Obtener un Entrenador por ID
 
-**GET /api/entrenador/{id}**
+```GET /api/entrenador/{id}```
 
 **Este endpoint permite obtener la información de un entrenador específico usando su ID. Si el entrenador no es encontrado, se devolverá un error.**
 
@@ -95,7 +95,7 @@ http://localhost:8080/api/entrenador/1
 
 ### Eliminar un Entrenador
 
-**DELETE /api/entrenador/eliminar/{id}**
+```DELETE /api/entrenador/eliminar/{id}```
 
 **Este endpoint permite eliminar un entrenador específico usando su ID. Si el entrenador no es encontrado, se devolverá un error.**
 
@@ -105,30 +105,120 @@ http://localhost:8080/api/entrenador/1
 http://localhost:8080/api/entrenador/eliminar/1
 ```
 
+## Endpoints de Aprendices
+
+### rear un Aprendiz
+
+```POST /api/aprendiz```
+
+**Este endpoint permite crear un nuevo aprendiz y asociarlo con un entrenador. Se debe proporcionar toda la información necesaria del aprendiz, incluyendo el ID del entrenador. Si el entrenador no existe o la información del aprendiz está incompleta, se devolverá un error adecuado.**
+
+**Ejemplo de Cuerpo de Solicitud**:
+
+```json
+{
+  "nombreCompleto": "Ana Martínez",
+  "correoElectronico": "ana.martinez@example.com",
+  "contrasenia": "password123",
+  "fechaNacimiento": "1995-08-15",
+  "genero": "Femenino",
+  "objetivoEntrenamiento": "Perder peso",
+  "nivelCondicion": "Intermedio",
+  "entrenadorId": 1
+}
+```
+
+### Actualizar un Aprendiz
+
+```PUT /api/aprendiz/actualizar/{id}```
+
+**Este endpoint permite actualizar la información de un aprendiz existente. Se debe proporcionar el ID del aprendiz en la URL y la nueva información en el cuerpo de la solicitud. Si el aprendiz no es encontrado, se devolverá un error.*
+
+**Ejemplo de Cuerpo de Solicitud**:
+
+```json
+{
+  "nombreCompleto": "Carlos Gómez",
+  "correoElectronico": "carlos.gomez@example.com",
+  "contrasenia": "newpassword123",
+  "fechaNacimiento": "1992-04-10",
+  "genero": "Masculino",
+  "objetivoEntrenamiento": "Ganar músculo",
+  "nivelCondicion": "Avanzado",
+  "entrenadorId": 1
+}
+```
+
+### Obtener la Lista de Aprendices
+
+```GET /api/aprendiz```
+
+**Este endpoint permite obtener la lista de todos los aprendices registrados en la base de datos. Devuelve una lista con la información de cada aprendiz.**
+
+**Ejemplo de Uso**:
+
+```
+http://localhost:8080/api/aprendiz
+```
+
+### Obtener un Aprendiz por ID
+
+```GET /api/aprendiz/{id}```
+
+**Este endpoint permite obtener la información de un aprendiz específico usando su ID. Si el aprendiz no es encontrado, se devolverá un error.**
+
+**Ejemplo de Uso**:
+
+```
+http://localhost:8080/api/aprendiz/1
+```
+
+### Eliminar un Aprendiz
+
+```DELETE /api/aprendiz/eliminar/{id}```
+
+**Este endpoint permite eliminar un aprendiz específico usando su ID. Si el aprendiz no es encontrado, se devolverá un error.**
+
+**Ejemplo de Uso**:
+
+```
+http://localhost:8080/api/aprendiz/eliminar/1
+```
+### Endpoint de Actividades
+
+**Obtener Reporte Mensual**
+
+```GET /api/actividades/reporte```
+
+**Este endpoint permite obtener un reporte mensual de las actividades de un aprendiz específico. Se debe proporcionar el ID del aprendiz, el mes y el año en los parámetros de la solicitud. Devuelve el reporte en formato de texto.**
+
+**Ejemplo de Uso**:
+
+```
+GET /api/actividades/reporte?aprendizId=1&mes=7&anio=2023
+```
+
 ### Excepciones
 
 > [!WARNING]
 > **EntrenadorExistenteExcepcion**: Se lanza cuando se intenta crear un entrenador con un correo electrónico ya existente.
 
 > [!WARNING]
-> InformacionIncompletaExcepcion: Se lanza cuando se proporciona información incompleta para crear o actualizar un entrenador o aprendiz.
+> **InformacionIncompletaExcepcion**: Se lanza cuando se proporciona información incompleta para crear o actualizar un entrenador o aprendiz.
 
 > [!WARNING]
-> EntrenadorNoEncontradoExcepcion: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
+> **EntrenadorNoEncontradoExcepcion**: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
 
 > [!WARNING]
-> EntrenadorNoEncontradoExcepcion: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
+> **EntrenadorNoEncontradoExcepcion**: Se lanza cuando no se encuentra un entrenador con el ID proporcionado.
 
 > [!WARNING]
-> AprendizExistenteExcepcion: Se lanza cuando se intenta crear un aprendiz con un correo electrónico ya existente.
+> **AprendizExistenteExcepcion**: Se lanza cuando se intenta crear un aprendiz con un correo electrónico ya existente.
 
 > [!WARNING]
-> AprendizNoEncontradoExcepcion: Se lanza cuando no se encuentra un aprendiz con el ID proporcionado.
+> **AprendizNoEncontradoExcepcion**: Se lanza cuando no se encuentra un aprendiz con el ID proporcionado.
 
 > [!WARNING]
-> AprendizNoExistenteExcepcion: Se lanza cuando no se encuentran aprendices en el repositorio.
-
-
-
+> **AprendizNoExistenteExcepcion**: Se lanza cuando no se encuentran aprendices en el repositorio.
 
 

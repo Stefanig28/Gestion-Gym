@@ -36,14 +36,14 @@ public class ActividadesControlador {
     }
 
 
-    @Operation(summary = "Guardar una nueva actividad")
+    @Operation(summary = "Crear una nueva actividad")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Actividad guardada correctamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
-    @PostMapping("/guardar")
-    public ResponseEntity<String> guardarActividad(@RequestBody Map<String, Object> requestBody) {
+    @PostMapping("/crear")
+    public ResponseEntity<String> crearActividad(@RequestBody Map<String, Object> requestBody) {
         try {
             Long aprendizId = Long.parseLong(requestBody.get("aprendizId").toString());
             Long entrenadorId = Long.parseLong(requestBody.get("entrenadorId").toString());
@@ -52,7 +52,7 @@ public class ActividadesControlador {
             String tipoEntrenamiento = requestBody.get("tipoEntrenamiento").toString();
             Integer duracionEntrenamiento = Integer.parseInt(requestBody.get("duracionEntrenamiento").toString());
 
-            actividadesServicio.guardarActividad(
+            actividadesServicio.crearActividad(
                     aprendizId,
                     entrenadorId,
                     nombreEntrenamiento,
@@ -60,9 +60,9 @@ public class ActividadesControlador {
                     tipoEntrenamiento,
                     duracionEntrenamiento
             );
-            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad guardada correctamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad creada correctamente");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la actividad: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la actividad: " + e.getMessage());
         }
     }
 

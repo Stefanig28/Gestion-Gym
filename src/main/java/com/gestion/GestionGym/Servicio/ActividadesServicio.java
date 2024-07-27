@@ -24,10 +24,10 @@ public class ActividadesServicio {
         }
     }
 
-    public void guardarActividad(Long aprendizId, Long entrenadorId,
+    public void crearActividad(Long aprendizId, Long entrenadorId,
                                  String nombreEntrenamiento, LocalDate fechaEntrenamiento,
                                  String tipoEntrenamiento, Integer duracionEntrenamiento) {
-        String url = "https://reporteactividadgym-production.up.railway.app/api/actividades/guardar";
+        String url = "https://reporteactividadgym-production.up.railway.app/api/actividades/crear";
 
         // Construcción del cuerpo de la solicitud como un Map
         Map<String, Object> actividadData = new HashMap<>();
@@ -47,10 +47,10 @@ public class ActividadesServicio {
             ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, request, Void.class);
 
             if (response.getStatusCode() != HttpStatus.OK) {
-                throw new RuntimeException("Error al guardar la actividad: " + response.getStatusCode());
+                throw new RuntimeException("Error al crear la actividad: " + response.getStatusCode());
             }
         } catch (RuntimeException e) {
-            throw new RuntimeException("Error al guardar la actividad: " + e.getMessage());
+            throw new RuntimeException("Error al crear la actividad: " + e.getMessage());
         }
     }
 

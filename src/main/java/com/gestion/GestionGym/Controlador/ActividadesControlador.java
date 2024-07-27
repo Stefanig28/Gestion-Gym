@@ -38,7 +38,7 @@ public class ActividadesControlador {
 
     @Operation(summary = "Guardar una nueva actividad")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Actividad guardada correctamente"),
+            @ApiResponse(responseCode = "200", description = "Actividad guardada correctamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })

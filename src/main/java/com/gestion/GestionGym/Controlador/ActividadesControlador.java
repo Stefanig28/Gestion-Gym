@@ -50,7 +50,7 @@ public class ActividadesControlador {
             String nombreEntrenamiento = requestBody.get("nombreEntrenamiento").toString();
             LocalDate fechaEntrenamiento = LocalDate.parse(requestBody.get("fechaEntrenamiento").toString());
             String tipoEntrenamiento = requestBody.get("tipoEntrenamiento").toString();
-            Integer duracionEntrenamiento = Integer.parseInt(requestBody.get("duracionEntrenamiento").toString());
+            String duracionEntrenamiento = requestBody.get("duracionEntrenamiento").toString();
 
             actividadesServicio.crearActividad(
                     aprendizId,

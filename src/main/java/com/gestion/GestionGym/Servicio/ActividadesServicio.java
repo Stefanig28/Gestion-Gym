@@ -25,8 +25,8 @@ public class ActividadesServicio {
     }
 
     public void crearActividad(Long aprendizId, Long entrenadorId,
-                                 String nombreEntrenamiento, LocalDate fechaEntrenamiento,
-                                 String tipoEntrenamiento, Integer duracionEntrenamiento) {
+                               String nombreEntrenamiento, LocalDate fechaEntrenamiento,
+                               String tipoEntrenamiento, String duracionEntrenamiento) {
         String url = "https://reporteactividadgym-production.up.railway.app/api/actividades/crear";
 
         // Construcción del cuerpo de la solicitud como un Map
@@ -40,13 +40,13 @@ public class ActividadesServicio {
 
         try {
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(actividadData, headers);
 
             ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, request, Void.class);
 
-            if (response.getStatusCode() != HttpStatus.OK) {
+            if (response.getStatusCode() != HttpStatus.CREATED) {
                 throw new RuntimeException("Error al crear la actividad: " + response.getStatusCode());
             }
         } catch (RuntimeException e) {
@@ -56,7 +56,7 @@ public class ActividadesServicio {
 
     public String obtenerActividades() {
         try {
-            String url ="https://reporteactividadgym-production.up.railway.app/api/actividades";
+            String url = "https://reporteactividadgym-production.up.railway.app/api/actividades";
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
             return response.getBody();
         } catch (RuntimeException e) {

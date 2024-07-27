@@ -19,10 +19,33 @@ public class ActividadesControlador {
     @Autowired
     private ActividadesServicio actividadesServicio;
 
+    @Operation(summary = "Crear una nueva actividad")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Actividad creada correctamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @PostMapping("/crear")
+    public ResponseEntity<String> enviarActividad(@RequestParam Long aprendizId,
+                                                  @RequestParam Long entrenadorId,
+                                                  @RequestParam String nombreEntrenamiento,
+                                                  @RequestParam String fechaEntrenamiento,
+                                                  @RequestParam String tipoEntrenamiento,
+                                                  @RequestParam String duracionEntrenamiento) {
+        try {
+            LocalDate fecha = LocalDate.parse(fechaEntrenamiento);
+            actividadesServicio.enviarActividad(aprendizId, entrenadorId, nombreEntrenamiento,
+                    fecha, tipoEntrenamiento, duracionEntrenamiento);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar la actividad: " + e.getMessage());
+        }
+    }
+
     @Operation(summary = "Obtener reporte mensual de actividades por aprendiz")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Reporte generado correctamente"),
-            @ApiResponse(responseCode = "400", description = "Ingrese el usuario y contraseña."),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/reportes/aprendiz/{id}")
@@ -31,38 +54,7 @@ public class ActividadesControlador {
             String reporte = actividadesServicio.obtenerReporteMensual(id, mes, anio);
             return ResponseEntity.ok(reporte);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Ingrese el usuario y contraseña.");
-        }
-    }
-
-
-    @Operation(summary = "Crear una nueva actividad")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Actividad guardada correctamente"),
-            @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    })
-    @PostMapping("/crear")
-    public ResponseEntity<String> crearActividad(@RequestBody Map<String, Object> requestBody) {
-        try {
-            Long aprendizId = Long.parseLong(requestBody.get("aprendizId").toString());
-            Long entrenadorId = Long.parseLong(requestBody.get("entrenadorId").toString());
-            String nombreEntrenamiento = requestBody.get("nombreEntrenamiento").toString();
-            LocalDate fechaEntrenamiento = LocalDate.parse(requestBody.get("fechaEntrenamiento").toString());
-            String tipoEntrenamiento = requestBody.get("tipoEntrenamiento").toString();
-            String duracionEntrenamiento = requestBody.get("duracionEntrenamiento").toString();
-
-            actividadesServicio.crearActividad(
-                    aprendizId,
-                    entrenadorId,
-                    nombreEntrenamiento,
-                    fechaEntrenamiento,
-                    tipoEntrenamiento,
-                    duracionEntrenamiento
-            );
-            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad creada correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la actividad: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener el reporte: " + e.getMessage());
         }
     }
 

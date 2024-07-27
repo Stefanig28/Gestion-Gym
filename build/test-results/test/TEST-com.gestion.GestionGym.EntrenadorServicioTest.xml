@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.gestion.GestionGym.EntrenadorServicioTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-07-23T18:08:35" hostname="DESKTOP-B1CH9TQ" time="2.506">
+<testsuite name="com.gestion.GestionGym.EntrenadorServicioTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-07-27T16:01:56" hostname="DESKTOP-B1CH9TQ" time="0.047">
   <properties/>
-  <testcase name="eliminarEntrenador()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="2.325"/>
-  <testcase name="CrearEntrenadorIncompleto()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.103"/>
-  <testcase name="obtenerEntrenadores()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.018"/>
-  <testcase name="ActualizarEntrenador()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.014"/>
-  <testcase name="obtenerEntrenadorPorIdNoExistente()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.015"/>
+  <testcase name="eliminarEntrenador()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.006"/>
+  <testcase name="CrearEntrenadorIncompleto()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.008"/>
+  <testcase name="obtenerEntrenadores()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.007"/>
+  <testcase name="ActualizarEntrenador()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.01"/>
+  <testcase name="obtenerEntrenadorPorIdNoExistente()" classname="com.gestion.GestionGym.EntrenadorServicioTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

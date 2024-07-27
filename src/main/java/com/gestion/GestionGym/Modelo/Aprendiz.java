@@ -37,7 +37,6 @@ public class Aprendiz {
 
     @ManyToOne
     @JoinColumn(name = "entrenador_id")
-    @JsonIgnore
     private Entrenador entrenador;
 
     public Aprendiz() {

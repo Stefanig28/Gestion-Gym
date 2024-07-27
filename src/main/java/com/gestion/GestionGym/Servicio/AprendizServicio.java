@@ -31,6 +31,7 @@ public class AprendizServicio {
         if (aprendizRepositorio.existsByCorreoElectronico(aprendiz.getCorreoElectronico())) {
             throw new AprendizExistenteExcepcion(aprendiz.getCorreoElectronico());
         }
+
         if ((aprendiz.getNombreCompleto() == null) ||
                 (aprendiz.getContrasenia() == null) ||
                 (aprendiz.getCorreoElectronico() == null) ||

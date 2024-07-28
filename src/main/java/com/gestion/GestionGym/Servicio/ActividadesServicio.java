@@ -1,5 +1,7 @@
 package com.gestion.GestionGym.Servicio;
 
+import com.gestion.GestionGym.Excepciones.AprendizObligatorioExecpcion;
+import com.gestion.GestionGym.Excepciones.EntrenadorObligatorioExcepcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -39,28 +41,26 @@ public class ActividadesServicio {
 
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(actividadData, headers);
 
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+        if (response.getStatusCode() != HttpStatus.CREATED) {
+            throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
+        }
 
-            if (response.getStatusCode() != HttpStatus.CREATED) {
-                throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
-            }
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Error al enviar la actividad: " + e.getMessage(), e);
+        if (actividadData.put("aprendizId", aprendizId) == null) {
+            throw new AprendizObligatorioExecpcion();
+        }
+        if (actividadData.put("entrenadorId", entrenadorId) == null) {
+            throw new EntrenadorObligatorioExcepcion();
         }
     }
 
     public String obtenerReporteMensual(Long aprendizId, int mes, int anio) {
-        String url = baseUrl + "/reportes/aprendiz/" + aprendizId + "?mes=" + mes + "&anio=" + anio;
-        try {
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
-            if (response.getStatusCode() != HttpStatus.OK) {
-                throw new RuntimeException("Error al obtener el reporte: " + response.getStatusCode());
-            }
-            return response.getBody();
-        } catch (RuntimeException e) {
-            return "Error al obtener el reporte: " + e.getMessage();
+        String url = baseUrl + "/reportes?aprendizId=" + aprendizId + "&mes=" + mes + "&anio=" + anio;
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new RuntimeException("Error al obtener el reporte: " + response.getStatusCode());
         }
+        return response.getBody();
     }
 
     public String obtenerActividades() {

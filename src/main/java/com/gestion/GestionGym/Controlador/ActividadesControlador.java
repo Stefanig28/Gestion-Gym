@@ -19,26 +19,30 @@ public class ActividadesControlador {
     @Autowired
     private ActividadesServicio actividadesServicio;
 
-    @Operation(summary = "Crear una nueva actividad")
+    @Operation(summary = "Enviar una nueva actividad")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Actividad creada correctamente"),
+            @ApiResponse(responseCode = "200", description = "Actividad enviada correctamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
-    @PostMapping("/crear")
-    public ResponseEntity<String> enviarActividad(@RequestParam Long aprendizId,
-                                                  @RequestParam Long entrenadorId,
-                                                  @RequestParam String nombreEntrenamiento,
-                                                  @RequestParam String fechaEntrenamiento,
-                                                  @RequestParam String tipoEntrenamiento,
-                                                  @RequestParam String duracionEntrenamiento) {
+    @PostMapping("/enviar")
+    public ResponseEntity<String> enviarActividad(@RequestBody Map<String, Object> actividadData) {
         try {
-            LocalDate fecha = LocalDate.parse(fechaEntrenamiento);
+            Long aprendizId = Long.parseLong(actividadData.get("aprendizId").toString());
+            Long entrenadorId = Long.parseLong(actividadData.get("entrenadorId").toString());
+            String nombreEntrenamiento = actividadData.get("nombreEntrenamiento").toString();
+            LocalDate fechaEntrenamiento = LocalDate.parse(actividadData.get("fechaEntrenamiento").toString());
+            String tipoEntrenamiento = actividadData.get("tipoEntrenamiento").toString();
+            String duracionEntrenamiento = actividadData.get("duracionEntrenamiento").toString();
+
+
             actividadesServicio.enviarActividad(aprendizId, entrenadorId, nombreEntrenamiento,
-                    fecha, tipoEntrenamiento, duracionEntrenamiento);
+                    fechaEntrenamiento, tipoEntrenamiento, duracionEntrenamiento);
             return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ya se envió la actividad con los mismos parametros");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar la actividad: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -54,7 +58,7 @@ public class ActividadesControlador {
             String reporte = actividadesServicio.obtenerReporteMensual(id, mes, anio);
             return ResponseEntity.ok(reporte);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener el reporte: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -117,7 +121,7 @@ public class ActividadesControlador {
             String actividades = actividadesServicio.obtenerActividadesPorAprendiz(id);
             return ResponseEntity.ok(actividades);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener las actividades del aprendiz: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

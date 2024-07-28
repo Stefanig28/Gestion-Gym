@@ -1,5 +1,6 @@
 package com.gestion.GestionGym.Controlador;
 
+import com.gestion.GestionGym.DTOs.AprendizDTO;
 import com.gestion.GestionGym.Excepciones.*;
 import com.gestion.GestionGym.Modelo.Aprendiz;
 import com.gestion.GestionGym.Servicio.AprendizServicio;
@@ -70,9 +71,9 @@ public class AprendizControlador {
             @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
     })
     @GetMapping
-    public ResponseEntity<List<Aprendiz>> obtenerAprendices() {
-        List<Aprendiz> aprendices = this.aprendizServicio.obtenerAprendices();
-        return ResponseEntity.ok(aprendices);
+    public ResponseEntity<List<AprendizDTO>> obtenerAprendices() {
+        List<AprendizDTO> aprendicesDTO = this.aprendizServicio.obtenerAprendices();
+        return ResponseEntity.ok(aprendicesDTO);
     }
 
     @Operation(summary = "Obtener un aprendiz por su ID")
@@ -84,8 +85,8 @@ public class AprendizControlador {
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerAprendizPorId(@PathVariable Long id) {
         try {
-            Aprendiz aprendiz = this.aprendizServicio.obtenerAprendizPorId(id);
-            return ResponseEntity.ok(aprendiz);
+            AprendizDTO aprendizDTO = this.aprendizServicio.obtenerAprendizPorId(id);
+            return ResponseEntity.ok(aprendizDTO);
         } catch (AprendizNoEncontradoExcepcion e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

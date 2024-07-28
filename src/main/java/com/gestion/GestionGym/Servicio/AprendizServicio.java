@@ -1,5 +1,7 @@
 package com.gestion.GestionGym.Servicio;
 
+import com.gestion.GestionGym.DTOs.AprendizDTO;
+import com.gestion.GestionGym.DTOs.EntrenadorDTO;
 import com.gestion.GestionGym.Excepciones.*;
 import com.gestion.GestionGym.Modelo.Aprendiz;
 import com.gestion.GestionGym.Modelo.Entrenador;
@@ -9,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-//https://gestion-gym-production.up.railway.app/api/aprendiz/
 @Service
 public class AprendizServicio {
 
@@ -76,12 +78,49 @@ public class AprendizServicio {
         aprendizRepositorio.save(aprendizActualizar);
     }
 
-    public List<Aprendiz> obtenerAprendices() {
-        return aprendizRepositorio.findAll();
+    public List<AprendizDTO> obtenerAprendices() {
+        List<Aprendiz> aprendices = aprendizRepositorio.findAll();
+        return aprendices.stream().map(aprendiz -> {
+            Entrenador entrenador = aprendiz.getEntrenador();
+            EntrenadorDTO entrenadorDTO = new EntrenadorDTO(
+                    entrenador.getId(),
+                    entrenador.getNombreCompleto(),
+                    entrenador.getCorreoElectronico(),
+                    entrenador.getEspecialidad(),
+                    entrenador.getExperiencia()
+            );
+            return new AprendizDTO(
+                    aprendiz.getId(),
+                    aprendiz.getNombreCompleto(),
+                    aprendiz.getCorreoElectronico(),
+                    aprendiz.getObjetivoEntrenamiento(),
+                    aprendiz.getNivelCondicion(),
+                    entrenadorDTO
+            );
+        }).collect(Collectors.toList());
     }
 
-    public Aprendiz obtenerAprendizPorId(Long id) {
-        return aprendizRepositorio.findById(id).orElseThrow(() -> new AprendizNoEncontradoExcepcion(id));
+    public AprendizDTO obtenerAprendizPorId(Long id) {
+        Aprendiz aprendiz = aprendizRepositorio.findById(id).orElseThrow(() -> new AprendizNoEncontradoExcepcion(id));
+
+        Entrenador entrenador = aprendiz.getEntrenador();
+        EntrenadorDTO entrenadorDTO = new EntrenadorDTO(
+                entrenador.getId(),
+                entrenador.getNombreCompleto(),
+                entrenador.getCorreoElectronico(),
+                entrenador.getEspecialidad(),
+                entrenador.getExperiencia()
+        );
+
+        return new AprendizDTO(
+                aprendiz.getId(),
+                aprendiz.getNombreCompleto(),
+                aprendiz.getCorreoElectronico(),
+                aprendiz.getObjetivoEntrenamiento(),
+                aprendiz.getNivelCondicion(),
+                entrenadorDTO
+        );
+
     }
 
     public void eliminarAprendiz(Long id) {

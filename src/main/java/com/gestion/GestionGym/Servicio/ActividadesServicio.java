@@ -1,5 +1,6 @@
 package com.gestion.GestionGym.Servicio;
 
+import com.gestion.GestionGym.DTOs.ActividadDTO;
 import com.gestion.GestionGym.Excepciones.AprendizObligatorioExecpcion;
 import com.gestion.GestionGym.Excepciones.EntrenadorObligatorioExcepcion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,32 +23,22 @@ public class ActividadesServicio {
 
     private final String baseUrl = "https://reporteactividadgym-production.up.railway.app/api/actividades";
 
-    public void enviarActividad(Long aprendizId, Long entrenadorId,
-                                String nombreEntrenamiento, LocalDate fechaEntrenamiento,
-                                String tipoEntrenamiento, String duracionEntrenamiento) {
+    public void enviarActividad(ActividadDTO actividadDTO) {
         String url = baseUrl + "/crear";
-
-        Map<String, Object> actividadData = new HashMap<>();
-        actividadData.put("aprendizId", aprendizId);
-        actividadData.put("entrenadorId", entrenadorId);
-        actividadData.put("nombreEntrenamiento", nombreEntrenamiento);
-        actividadData.put("fechaEntrenamiento", fechaEntrenamiento.toString());
-        actividadData.put("tipoEntrenamiento", tipoEntrenamiento);
-        actividadData.put("duracionEntrenamiento", duracionEntrenamiento);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(actividadData, headers);
+        HttpEntity<ActividadDTO> request = new HttpEntity<>(actividadDTO, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
         if (response.getStatusCode() != HttpStatus.CREATED) {
             throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
         }
-        if (actividadData.put("aprendizId", aprendizId) == null) {
+        if (actividadDTO.getAprendizId() == null) {
             throw new AprendizObligatorioExecpcion();
         }
-        if (actividadData.put("entrenadorId", entrenadorId) == null) {
+        if (actividadDTO.getEntrenadorId() == null) {
             throw new EntrenadorObligatorioExcepcion();
         }
     }
@@ -83,17 +73,17 @@ public class ActividadesServicio {
             }
             return response.getBody();
         } catch (RuntimeException e) {
-            return "No hay actividades registrdas para el aprendiz " + aprendizId;
+            return "No hay actividades registradas para el aprendiz " + aprendizId;
         }
     }
 
-    public void actualizarActividad(String id, Map<String, Object> actividadData) {
+    public void actualizarActividad(String id, ActividadDTO actividadDTO) {
         String url = baseUrl + "/" + id + "/actualizar";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(actividadData, headers);
+        HttpEntity<ActividadDTO> request = new HttpEntity<>(actividadDTO, headers);
 
         try {
             ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.PUT, request, Void.class);

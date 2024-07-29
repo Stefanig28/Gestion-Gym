@@ -1,5 +1,6 @@
 package com.gestion.GestionGym.Controlador;
 
+import com.gestion.GestionGym.DTOs.ActividadDTO;
 import com.gestion.GestionGym.Servicio.ActividadesServicio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 @RestController
@@ -21,22 +21,14 @@ public class ActividadesControlador {
 
     @Operation(summary = "Enviar una nueva actividad")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Actividad enviada correctamente"),
+            @ApiResponse(responseCode = "201", description = "Actividad enviada correctamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/enviar")
-    public ResponseEntity<String> enviarActividad(@RequestBody Map<String, Object> actividadData) {
+    public ResponseEntity<String> enviarActividad(@RequestBody ActividadDTO actividadDTO) {
         try {
-            Long aprendizId = Long.parseLong(actividadData.get("aprendizId").toString());
-            Long entrenadorId = Long.parseLong(actividadData.get("entrenadorId").toString());
-            String nombreEntrenamiento = actividadData.get("nombreEntrenamiento").toString();
-            LocalDate fechaEntrenamiento = LocalDate.parse(actividadData.get("fechaEntrenamiento").toString());
-            String tipoEntrenamiento = actividadData.get("tipoEntrenamiento").toString();
-            String duracionEntrenamiento = actividadData.get("duracionEntrenamiento").toString();
-
-            actividadesServicio.enviarActividad(aprendizId, entrenadorId, nombreEntrenamiento,
-                    fechaEntrenamiento, tipoEntrenamiento, duracionEntrenamiento);
+            actividadesServicio.enviarActividad(actividadDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -67,9 +59,9 @@ public class ActividadesControlador {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<String> actualizarActividad(@PathVariable String id, @RequestBody Map<String, Object> requestBody) {
+    public ResponseEntity<String> actualizarActividad(@PathVariable String id, @RequestBody ActividadDTO actividadDTO) {
         try {
-            actividadesServicio.actualizarActividad(id, requestBody);
+            actividadesServicio.actualizarActividad(id, actividadDTO);
             return ResponseEntity.ok("Actividad actualizada correctamente");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar la actividad: " + e.getMessage());

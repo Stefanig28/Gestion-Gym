@@ -36,7 +36,7 @@ public class ActividadesServicio {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
         if (response.getStatusCode() != HttpStatus.CREATED) {
-            throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
+            throw new RuntimeException("La actividad ya ha sido creada con los mismo párametros: " + response.getStatusCode());
         }
     }
 

@@ -39,7 +39,7 @@ public class ActividadesControlador {
                     fechaEntrenamiento, tipoEntrenamiento, duracionEntrenamiento);
             return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La actividad ya se creo anteriormente. " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 

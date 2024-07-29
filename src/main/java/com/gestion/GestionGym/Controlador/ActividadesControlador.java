@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/actividades")
 public class ActividadesControlador {
@@ -27,6 +25,9 @@ public class ActividadesControlador {
     })
     @PostMapping("/enviar")
     public ResponseEntity<String> enviarActividad(@RequestBody ActividadDTO actividadDTO) {
+        if (actividadDTO.getAprendizId() == null || actividadDTO.getEntrenadorId() == null) {
+            return ResponseEntity.badRequest().body("El ID del aprendiz y el ID del entrenador son obligatorios.");
+        }
         try {
             actividadesServicio.enviarActividad(actividadDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente.");

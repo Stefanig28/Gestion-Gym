@@ -8,9 +8,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class ActividadesServicio {
 
@@ -24,8 +21,14 @@ public class ActividadesServicio {
     private final String baseUrl = "https://reporteactividadgym-production.up.railway.app/api/actividades";
 
     public void enviarActividad(ActividadDTO actividadDTO) {
-        String url = baseUrl + "/crear";
+        if (actividadDTO.getAprendizId() == null) {
+            throw new AprendizObligatorioExecpcion();
+        }
+        if (actividadDTO.getEntrenadorId() == null) {
+            throw new EntrenadorObligatorioExcepcion();
+        }
 
+        String url = baseUrl + "/crear";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -34,12 +37,6 @@ public class ActividadesServicio {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
         if (response.getStatusCode() != HttpStatus.CREATED) {
             throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
-        }
-        if (actividadDTO.getAprendizId() == null) {
-            throw new AprendizObligatorioExecpcion();
-        }
-        if (actividadDTO.getEntrenadorId() == null) {
-            throw new EntrenadorObligatorioExcepcion();
         }
     }
 

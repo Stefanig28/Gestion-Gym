@@ -10,6 +10,9 @@ public class ActividadDTO {
     private String tipoEntrenamiento;
     private String duracionEntrenamiento;
 
+    public ActividadDTO() {
+    }
+
     public ActividadDTO(Long aprendizId, Long entrenadorId, String nombreEntrenamiento, LocalDate fechaEntrenamiento, String tipoEntrenamiento, String duracionEntrenamiento) {
         this.aprendizId = aprendizId;
         this.entrenadorId = entrenadorId;

@@ -105,8 +105,8 @@ public class ActividadesControlador {
         try {
             String actividades = actividadesServicio.obtenerActividades();
             return ResponseEntity.ok(actividades);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener las actividades: " + e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

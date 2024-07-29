@@ -66,12 +66,8 @@ public class EntrenadorControlador {
     })
     @GetMapping
     public ResponseEntity<List<Entrenador>> obtenerEntrenadores() {
-        try {
-            List<Entrenador> entrenadores = this.entrenadorServicio.obtenerEntrenadores();
-            return ResponseEntity.ok(entrenadores);
-        } catch (EntrenadorNoExistenteExcepcion e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        List<Entrenador> entrenador = entrenadorServicio.obtenerEntrenadores();
+        return ResponseEntity.ok(entrenador);
     }
 
     @Operation(summary = "Obtener un entrenador por su id")
@@ -81,12 +77,12 @@ public class EntrenadorControlador {
             @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Entrenador> obtenerEntrenadorPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<?> obtenerEntrenadorPorId(@PathVariable("id") Long id) {
         try {
             Entrenador entrenador = entrenadorServicio.obtenerEntrenadorPorId(id);
             return ResponseEntity.ok(entrenador);
         } catch (EntrenadorNoEncontradoExcepcion e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -96,12 +92,12 @@ public class EntrenadorControlador {
             @ApiResponse(responseCode = "400", description = "Entrenador no existente"),
             @ApiResponse(responseCode = "500", description = "Ocurrió un error inesperado")
     })
-    @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<String> eliminarEntrenador(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarEntrenador(@PathVariable("id") Long id) {
         try {
             this.entrenadorServicio.eliminarEntrenador(id);
             return ResponseEntity.ok("Se eliminó el entrenador correctamente.");
-        } catch (EntrenadorNoExistenteExcepcion e) {
+        } catch (EntrenadorNoEncontradoExcepcion e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

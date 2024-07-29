@@ -1,6 +1,5 @@
 package com.gestion.GestionGym.Modelo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

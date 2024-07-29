@@ -21,7 +21,7 @@ public class ActividadesServicio {
         this.restTemplate = restTemplate;
     }
 
-    private final String baseUrl = "http://localhost:8081/api/actividades";
+    private final String baseUrl = "https://reporteactividadgym-production.up.railway.app";
 
     public void enviarActividad(Long aprendizId, Long entrenadorId,
                                 String nombreEntrenamiento, LocalDate fechaEntrenamiento,
@@ -71,7 +71,7 @@ public class ActividadesServicio {
             }
             return response.getBody();
         } catch (RuntimeException e) {
-            return "Error al obtener las actividades: " + e.getMessage();
+            return "No hay actividades registradas";
         }
     }
 
@@ -80,11 +80,11 @@ public class ActividadesServicio {
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
             if (response.getStatusCode() != HttpStatus.OK) {
-                throw new RuntimeException("Error al obtener las actividades del aprendiz: " + response.getStatusCode());
+                throw new RuntimeException("Error al obtener las actividades del aprendiz: " + aprendizId + response.getStatusCode());
             }
             return response.getBody();
         } catch (RuntimeException e) {
-            return "Error al obtener las actividades del aprendiz: " + e.getMessage();
+            return "No hay actividades registrdas para el aprendiz " + aprendizId;
         }
     }
 

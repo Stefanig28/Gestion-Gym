@@ -1,5 +1,6 @@
 package com.gestion.GestionGym;
 
+import com.gestion.GestionGym.DTOs.EntrenadorDTO;
 import com.gestion.GestionGym.Excepciones.EntrenadorNoEncontradoExcepcion;
 import com.gestion.GestionGym.Excepciones.InformacionIncompletaExcepcion;
 import com.gestion.GestionGym.Modelo.Entrenador;

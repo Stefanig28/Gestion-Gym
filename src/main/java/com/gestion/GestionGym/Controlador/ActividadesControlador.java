@@ -35,14 +35,11 @@ public class ActividadesControlador {
             String tipoEntrenamiento = actividadData.get("tipoEntrenamiento").toString();
             String duracionEntrenamiento = actividadData.get("duracionEntrenamiento").toString();
 
-
             actividadesServicio.enviarActividad(aprendizId, entrenadorId, nombreEntrenamiento,
                     fechaEntrenamiento, tipoEntrenamiento, duracionEntrenamiento);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Actividad enviada correctamente.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ya se envió la actividad con los mismos parametros");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La actividad ya se creo anteriormente. " + e.getMessage());
         }
     }
 

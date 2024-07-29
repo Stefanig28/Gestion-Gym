@@ -45,7 +45,6 @@ public class ActividadesServicio {
         if (response.getStatusCode() != HttpStatus.CREATED) {
             throw new RuntimeException("Error al enviar la actividad: " + response.getStatusCode());
         }
-
         if (actividadData.put("aprendizId", aprendizId) == null) {
             throw new AprendizObligatorioExecpcion();
         }

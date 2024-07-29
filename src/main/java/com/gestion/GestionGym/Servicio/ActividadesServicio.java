@@ -21,7 +21,7 @@ public class ActividadesServicio {
         this.restTemplate = restTemplate;
     }
 
-    private final String baseUrl = "https://reporteactividadgym-production.up.railway.app";
+    private final String baseUrl = "https://reporteactividadgym-production.up.railway.app/api/actividades";
 
     public void enviarActividad(Long aprendizId, Long entrenadorId,
                                 String nombreEntrenamiento, LocalDate fechaEntrenamiento,

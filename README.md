@@ -17,7 +17,7 @@ Desarollo del proyecto intregador dentro del BooCamp de Desarollo web BacKend en
 
 
 
-# Introduccion! 👋
+# Introducción! 👋
 La Aplicación de Gestión de Gimnasio permite administrar entrenadores, aprendices y sus actividades de entrenamiento. Los aprendices pueden registrar y modificar su perfil, así como el tipo de entrenamiento y el tiempo dedicado. Simplifica la gestión y seguimiento en el gimnasio.
 
 

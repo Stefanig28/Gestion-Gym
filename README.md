@@ -9,9 +9,9 @@ Desarollo del proyecto intregador dentro del BooCamp de Desarollo web BacKend en
 
 ## 📌 Equipo de Trabajo
 
-- luis
-- stefani
-- omar
+- Luis Bautista
+- Stefani Torres
+- Omar Bonnet
   
  El repositorio corresponde al desarollo del proyecto intrgador dentro del bootcamp Betek, en el se desarolla la simulacion de una aplicacion de gestion de gimnasio utilizando Java, MySQL, SpringBoot, SpringData, swagger y railway.
 
@@ -45,8 +45,8 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 ```json
 {
   "nombreCompleto": "Juan Pérez",
-  "correoElectronico": "juan.perez@example.com",
-  "contrasenia": "password123",
+  "correoElectronico": "juan.perez@gmail.com",
+  "contrasenia": "1234",
   "especialidad": "Fuerza",
   "experiencia": "5 años",
   "certificaciones": ["Certificación A", "Certificación B"]
@@ -62,8 +62,8 @@ Esta API permite la gestión de entrenadores y aprendices en un gimnasio. Propor
 ```json
 {
   "nombreCompleto": "Luis García",
-  "correoElectronico": "luis.garcia@example.com",
-  "contrasenia": "newpassword123",
+  "correoElectronico": "luis.garcia@gmail.com",
+  "contrasenia": "2468",
   "especialidad": "Cardio",
   "experiencia": "3 años",
   "certificaciones": ["Certificación C"]
@@ -118,8 +118,8 @@ http://localhost:8080/api/entrenador/eliminar/1
 ```json
 {
   "nombreCompleto": "Ana Martínez",
-  "correoElectronico": "ana.martinez@example.com",
-  "contrasenia": "password123",
+  "correoElectronico": "ana.martinez@gmail.com",
+  "contrasenia": "4321",
   "fechaNacimiento": "1995-08-15",
   "genero": "Femenino",
   "objetivoEntrenamiento": "Perder peso",
@@ -139,8 +139,8 @@ http://localhost:8080/api/entrenador/eliminar/1
 ```json
 {
   "nombreCompleto": "Carlos Gómez",
-  "correoElectronico": "carlos.gomez@example.com",
-  "contrasenia": "newpassword123",
+  "correoElectronico": "carlos.gomez@gmail.com",
+  "contrasenia": "9751",
   "fechaNacimiento": "1992-04-10",
   "genero": "Masculino",
   "objetivoEntrenamiento": "Ganar músculo",

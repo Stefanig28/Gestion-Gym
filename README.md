@@ -107,7 +107,7 @@ http://localhost:8080/api/entrenador/eliminar/1
 
 ## Endpoints de Aprendices
 
-### rear un Aprendiz
+### Crear un Aprendiz
 
 ```POST /api/aprendiz```
 
